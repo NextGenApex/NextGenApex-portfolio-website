@@ -31,35 +31,31 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col m-0 font-sans">
         {/* ВЕРХНЕЕ МЕНЮ (НАВИГАЦИЯ) */}
-        <nav
-          style={{
-            background: "#1a1a1a",
-            padding: "15px 20px",
-            display: "flex",
-            gap: "20px",
-          }}
-        >
+        {/* ВЕРХНЕЕ МЕНЮ (НАВИГАЦИЯ) ПО ЦЕНТРУ */}
+        <nav className="bg-[#1a1a1a] p-[15px_20px] flex justify-center gap-5">
           <Link
             href="/"
-            style={{
-              color: "#fff",
-              textDecoration: "none",
-              fontWeight: "bold",
-            }}
+            className="color-[#fff] text-white no-underline font-bold hover:text-gray-300 transition-colors"
           >
             Главная
           </Link>
-          <Link href="/about" style={{ color: "#ccc", textDecoration: "none" }}>
-            Члены команды
+          <Link
+            href="/about"
+            className="text-gray-300 no-underline hover:text-white transition-colors"
+          >
+            О команде
           </Link>
           <Link
             href="/projects"
-            style={{ color: "#ccc", textDecoration: "none" }}
+            className="text-gray-300 no-underline hover:text-white transition-colors"
           >
-            Проекты команды
+            Проекты
           </Link>
-          <Link href="/about" style={{ color: "#ccc", textDecoration: "none" }}>
-            ИИ Поддержка
+          <Link
+            href="/projects"
+            className="text-gray-300 no-underline hover:text-white transition-colors"
+          >
+            ИИ поддержка
           </Link>
         </nav>
 
