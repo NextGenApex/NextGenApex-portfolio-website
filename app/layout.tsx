@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
+import Navigation from "./components/Navigation";
 
-// ORB
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,49 +28,15 @@ export default function RootLayout({
       lang="ru"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col m-0 font-sans">
-        {/* ВЕРХНЕЕ МЕНЮ (НАВИГАЦИЯ) */}
-        {/* ВЕРХНЕЕ МЕНЮ (НАВИГАЦИЯ) ПО ЦЕНТРУ */}
-        <nav className="bg-[#1a1a1a] p-[15px_20px] flex justify-center gap-5">
-          <Link
-            href="/"
-            className="color-[#fff] text-white no-underline font-bold hover:text-gray-300 transition-colors"
-          >
-            Главная
-          </Link>
-          <Link
-            href="/about"
-            className="text-gray-300 no-underline hover:text-white transition-colors"
-          >
-            О команде
-          </Link>
-          <Link
-            href="/projects"
-            className="text-gray-300 no-underline hover:text-white transition-colors"
-          >
-            Проекты
-          </Link>
-          <Link
-            href="/projects"
-            className="text-gray-300 no-underline hover:text-white transition-colors"
-          >
-            ИИ поддержка
-          </Link>
-        </nav>
+      <body className="min-h-full flex flex-col m-0 font-sans bg-[#f8f8f8] text-gray-900">
+        <Navigation />
 
-        {/* ОСНОВНОЙ КОНТЕНТ СТРАНИЦЫ */}
-        <main style={{ flex: "1 0 auto" }}>{children}</main>
+        <main className="flex-1">{children}</main>
 
-        {/* НИЖНЯЯ ЧАСТЬ (ФУТЕР) */}
-        <footer
-          style={{
-            background: "#f5f5f5",
-            padding: "15px",
-            textAlign: "center",
-            color: "#666",
-          }}
-        >
-          <p>© 2026</p>
+        <footer className="border-t border-black/10 bg-[#ececec] py-8 text-center text-sm text-gray-500">
+          <div className="mx-auto max-w-7xl px-6">
+            <p>© 2026 Наша Команда. Все права защищены.</p>
+          </div>
         </footer>
       </body>
     </html>
