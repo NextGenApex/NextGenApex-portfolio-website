@@ -9,53 +9,32 @@ const navLinks = [
   { name: "Проекты", href: "/projects" },
 ];
 
-// Нормализуем путь (убираем хвостовой слэш, чтобы работало и на GitHub Pages)
 const normalize = (p: string) => p.replace(/\/$/, "") || "/";
-
-const getTheme = (path: string) => {
-  const p = normalize(path);
-
-  if (p === "/projects") {
-    return {
-      bg: "rgba(20, 20, 20, 0.95)",
-      text: "#ededed",
-      border: "rgba(255, 255, 255, 0.1)",
-      btnBorder: "rgba(255, 255, 255, 0.3)",
-      btnHover: "hover:bg-white/10",
-    };
-  }
-
-  if (p === "/about") {
-    return {
-      bg: "rgba(180, 180, 180, 0.95)",
-      text: "#171717",
-      border: "rgba(0, 0, 0, 0.15)",
-      btnBorder: "rgba(0, 0, 0, 0.25)",
-      btnHover: "hover:bg-black/5",
-    };
-  }
-
-  return {
-    bg: "rgba(255, 255, 255, 0.95)",
-    text: "#171717",
-    border: "rgba(0, 0, 0, 0.08)",
-    btnBorder: "rgba(0, 0, 0, 0.2)",
-    btnHover: "hover:bg-black/5",
-  };
-};
 
 export default function Navigation() {
   const pathname = usePathname();
-  const theme = getTheme(pathname);
-  const isDark = normalize(pathname) === "/projects";
+  const p = normalize(pathname);
+
+  const isAbout = p === "/about";
+  const isProjects = p === "/projects";
+
+  // Выбираем цвет фона: Белый -> Чёрный -> Тёмно-серый
+  const bgColor = isAbout
+    ? "rgba(20, 20, 20, 0.95)" // Чёрный (для О команде)
+    : isProjects
+      ? "rgb(58, 58, 58)" // Тёмно-серый (для Проектов)
+      : "rgba(255, 255, 255, 0.95)"; // Белый (для Главной)
+
+  // Цвет текста: делаем белым на ОБЕИХ тёмных страницах (О команде и Проекты)
+  const textColor = isAbout || isProjects ? "#ededed" : "#171717";
 
   return (
     <header
-      className="sticky top-0 z-50 w-full border-b backdrop-blur-md"
+      className="sticky top-0 z-50 w-full border-b border-black/10"
       style={{
-        backgroundColor: theme.bg,
-        color: theme.text,
-        borderBottomColor: theme.border,
+        backgroundColor: bgColor,
+        color: textColor,
+        transition: "background-color 1s ease-in-out, color 1s ease-in-out",
       }}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
@@ -71,8 +50,7 @@ export default function Navigation() {
         {/* Ссылки */}
         <nav className="flex items-center gap-8">
           {navLinks.map((link) => {
-            const isActive = normalize(pathname) === normalize(link.href);
-
+            const isActive = p === normalize(link.href);
             return (
               <Link
                 key={link.href}
@@ -94,10 +72,13 @@ export default function Navigation() {
 
         {/* Кнопка */}
         <Link
-          href="#contact"
-          className={`rounded-sm border px-4 py-2 text-sm font-medium transition-colors duration-300 ${theme.btnHover}`}
+          href="/contact" // <--- ВОТ ТУТ ИЗМЕНИ "#contact" НА "/contact"
+          className="rounded-sm border px-4 py-2 text-sm font-medium transition-colors duration-300 hover:bg-black/5"
           style={{
-            borderColor: theme.btnBorder,
+            borderColor:
+              isAbout || isProjects
+                ? "rgba(255,255,255,0.3)"
+                : "rgba(0,0,0,0.2)",
           }}
         >
           Связаться
