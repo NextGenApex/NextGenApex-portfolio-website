@@ -134,7 +134,7 @@ export default function Home() {
           sequi nesciunt.
         </p>
         <Link
-          href="#contact"
+          href="/contact"
           className="inline-block rounded-md bg-white px-8 py-4 text-sm font-semibold text-black hover:bg-gray-200 transition-colors"
         >
           Связаться с нами
